@@ -1,0 +1,109 @@
+<%- include('partials/header') %>
+
+<!-- Hero -->
+<section class="hero-section text-white py-5">
+  <div class="container py-3">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h1 class="display-5 fw-bold mb-3">Home Services At Your Doorstep</h1>
+        <p class="lead mb-4 opacity-75">Book trusted professionals for AC repair, plumbing, electrical work and more. Fast and affordable.</p>
+        <a href="/services" class="btn btn-warning btn-lg fw-semibold me-2">
+          <i class="bi bi-tools me-1"></i> Our Services
+        </a>
+        <a href="/auth/signup" class="btn btn-outline-light btn-lg">
+          <i class="bi bi-person-plus me-1"></i> Get Started
+        </a>
+      </div>
+      <div class="col-lg-6">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80"
+             alt="Home Service" class="img-fluid rounded-3 shadow">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="bg-white py-4 border-bottom">
+  <div class="container">
+    <div class="row text-center gy-3">
+      <div class="col-6 col-md-3">
+        <h3 class="fw-bold text-primary mb-0">5,000+</h3>
+        <small class="text-muted">Happy Customers</small>
+      </div>
+      <div class="col-6 col-md-3">
+        <h3 class="fw-bold text-primary mb-0">200+</h3>
+        <small class="text-muted">Expert Workers</small>
+      </div>
+      <div class="col-6 col-md-3">
+        <h3 class="fw-bold text-primary mb-0">6</h3>
+        <small class="text-muted">Service Types</small>
+      </div>
+      <div class="col-6 col-md-3">
+        <h3 class="fw-bold text-primary mb-0">4.8 ★</h3>
+        <small class="text-muted">Rating</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Services -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">Popular Services</h2>
+      <p class="text-muted">Most booked services this month</p>
+    </div>
+
+    <% if (services.length === 0) { %>
+      <div class="alert alert-info text-center">
+        No services found. <a href="#">Seed the database</a> to add services.
+      </div>
+    <% } else { %>
+    <div class="row g-4">
+      <% services.forEach(function(service) { %>
+      <div class="col-md-4">
+        <div class="card service-card h-100 border-0 shadow-sm">
+          <img src="<%= service.image %>" class="card-img-top service-img" alt="<%= service.name %>">
+          <div class="card-body">
+            <h5 class="card-title fw-semibold"><%= service.name %></h5>
+            <p class="card-text text-muted small"><%= service.description %></p>
+            <p class="text-primary fw-semibold small"><i class="bi bi-tag me-1"></i><%= service.price %></p>
+            <a href="/auth/login" class="btn btn-primary btn-sm w-100">Book Now</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+
+    <div class="text-center mt-4">
+      <a href="/services" class="btn btn-outline-primary px-4">View All Services &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- Why Us -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-4">Why Choose HomeServe?</h2>
+    <div class="row g-4 text-center">
+      <div class="col-md-4">
+        <i class="bi bi-shield-check text-primary" style="font-size:2.5rem;"></i>
+        <h5 class="fw-semibold mt-3">Verified Professionals</h5>
+        <p class="text-muted small">All workers are background-checked before joining.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-cash-coin text-primary" style="font-size:2.5rem;"></i>
+        <h5 class="fw-semibold mt-3">Transparent Pricing</h5>
+        <p class="text-muted small">No hidden charges. Clear price before you book.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-clock text-primary" style="font-size:2.5rem;"></i>
+        <h5 class="fw-semibold mt-3">Fast Response</h5>
+        <p class="text-muted small">Professional at your door within 1 hour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
