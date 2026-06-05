@@ -1,0 +1,44 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="container mt-4">
+  <h2>Admin Dashboard</h2>
+  <p class="text-muted">Welcome, <%= user.name %></p>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>All Users</h4>
+      <table class="table table-sm">
+        <thead><tr><th>Name</th><th>Email</th><th>Admin</th></tr></thead>
+        <tbody>
+          <% users.forEach(function(u){ %>
+            <tr>
+              <td><%= u.name %></td>
+              <td><%= u.email %></td>
+              <td><%= u.isAdmin ? 'Yes' : 'No' %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <h4>All Bookings</h4>
+      <table class="table table-sm">
+        <thead><tr><th>User</th><th>Service</th><th>Status</th><th>Created</th></tr></thead>
+        <tbody>
+          <% bookings.forEach(function(b){ %>
+            <tr>
+              <td><%= b.user ? b.user.email : 'Unknown' %></td>
+              <td><%= b.service %></td>
+              <td><%= b.status %></td>
+              <td><%= b.createdAt.toLocaleString() %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<%- include('../partials/footer') %>

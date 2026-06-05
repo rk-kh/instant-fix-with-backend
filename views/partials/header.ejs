@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+~<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -29,8 +29,21 @@
         <li class="nav-item"><a class="nav-link" href="/about"><i class="bi bi-info-circle me-1"></i>About</a></li>
       </ul>
       <div class="ms-lg-3 mt-2 mt-lg-0 d-flex gap-2">
-        <a href="/bookings" class="btn btn-outline-light btn-sm"><i class="bi bi-calendar-check me-1"></i>My Bookings</a>
-        <a href="/auth/logout" class="btn btn-warning btn-sm fw-semibold"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+        <% if (typeof user !== 'undefined' && user) { %>
+          <a href="/bookings" class="btn btn-outline-light btn-sm"><i class="bi bi-calendar-check me-1"></i>My Bookings</a>
+          <% if (user.isAdmin) { %>
+            <a href="/admin" class="btn btn-outline-light btn-sm"><i class="bi bi-person-workspace me-1"></i>Admin</a>
+          <% } %>
+          <a href="/auth/logout" class="btn btn-warning btn-sm fw-semibold"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+        <% } else { %>
+          <% if (!adminExists) { %>
+            <a href="/admin/register" class="btn btn-outline-light btn-sm"><i class="bi bi-person-plus me-1"></i>Admin Register</a>
+          <% } else { %>
+            <a href="/admin/login" class="btn btn-outline-light btn-sm"><i class="bi bi-shield-lock me-1"></i>Admin Login</a>
+          <% } %>
+          <a href="/auth/login" class="btn btn-outline-light btn-sm">Login</a>
+          <a href="/auth/signup" class="btn btn-light btn-sm">Sign Up</a>
+        <% } %>
       </div>
     </div>
 

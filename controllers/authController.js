@@ -67,11 +67,16 @@ exports.postLogin = async (req, res) => {
       return res.render('login', { title: 'Login', error: 'Wrong password.' });
     }
 
+    // Prevent admin accounts from logging in via the regular login form
+    if (user.isAdmin) {
+      return res.render('login', { title: 'Login', error: 'Admin users must sign in via the Admin Login button.' });
+    }
+
     // ✅ Login successful - create a JWT token
     const token = jwt.sign(
-      { id: user._id, name: user.name, email: user.email },  // data to store in token
-      SECRET,                                                  // secret key
-      { expiresIn: '1d' }                                     // token expires in 1 day
+      { id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin },
+      SECRET,
+      { expiresIn: '1d' }
     );
 
     // Save token in a cookie so browser sends it on every request

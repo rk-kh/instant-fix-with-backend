@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
     required: true
   },
 
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
+
   createdAt: {
     type: Date,
     default: Date.now  // automatically set to current time

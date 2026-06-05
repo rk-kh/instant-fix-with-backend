@@ -30,4 +30,15 @@ function protect(req, res, next) {
 
 }
 
-module.exports = { protect, SECRET };
+// ── Admin-only middleware ─────────────────────────────────────
+// Ensures the logged-in user is an admin
+function adminOnly(req, res, next) {
+  // protect middleware should already have set req.user
+  if (req.user && req.user.isAdmin) {
+    return next();
+  }
+  // Not authorized
+  return res.status(403).send('Access denied. Admins only.');
+}
+
+module.exports = { protect, SECRET, adminOnly };
