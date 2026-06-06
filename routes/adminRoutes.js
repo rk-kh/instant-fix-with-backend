@@ -20,4 +20,8 @@ router.get('/', protect, adminOnly, controller.getDashboard);
 // Admin debug endpoint (shows counts and latest documents)
 router.get('/debug', protect, adminOnly, controller.getDebug);
 
+// Admin pages to view all users and bookings
+router.get('/users', protect, adminOnly, controller.getUsers);
+router.get('/bookings', protect, adminOnly, controller.getBookings);
+
 module.exports = router;

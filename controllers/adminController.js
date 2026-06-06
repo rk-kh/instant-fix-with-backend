@@ -58,7 +58,24 @@ exports.getDashboard = async (req, res) => {
   try {
     const users = await User.find().sort({ createdAt: -1 });
     const bookings = await Booking.find().populate('user').sort({ createdAt: -1 });
-    res.render('admin/dashboard', { title: 'Admin Dashboard', users, bookings, user: req.user });
+
+    const totalUsers = users.length;
+    const totalBookings = bookings.length;
+    const pendingBookings = bookings.filter((b) => b.status === 'Pending').length;
+    const confirmedBookings = bookings.filter((b) => b.status === 'Confirmed').length;
+    const recentBookings = bookings.slice(0, 5);
+
+    res.render('admin/dashboard', {
+      title: 'Admin Dashboard',
+      users,
+      bookings,
+      totalUsers,
+      totalBookings,
+      pendingBookings,
+      confirmedBookings,
+      recentBookings,
+      user: req.user,
+    });
   } catch (err) {
     console.log(err);
     res.redirect('/');
@@ -117,5 +134,27 @@ exports.getDebug = async (req, res) => {
   } catch (err) {
     console.log('Debug error:', err);
     return res.status(500).json({ error: 'Could not retrieve debug information.' });
+  }
+};
+
+// ── List all registered users (admin view) ─────────────────────────────────
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find().sort({ createdAt: -1 });
+    res.render('admin/users', { title: 'Admin - Users', users, user: req.user });
+  } catch (err) {
+    console.log('Error fetching users:', err);
+    res.redirect('/admin');
+  }
+};
+
+// ── List all bookings (admin view) ────────────────────────────────────────
+exports.getBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find().populate('user').sort({ createdAt: -1 });
+    res.render('admin/bookings', { title: 'Admin - Bookings', bookings, user: req.user });
+  } catch (err) {
+    console.log('Error fetching bookings:', err);
+    res.redirect('/admin');
   }
 };

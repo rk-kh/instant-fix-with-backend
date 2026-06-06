@@ -97,5 +97,5 @@ exports.postLogin = async (req, res) => {
 // ── Logout ────────────────────────────────────────────────────
 exports.logout = (req, res) => {
   res.clearCookie('token');   // delete the JWT cookie
-  res.redirect('/auth/login');
+  res.redirect('/');
 };
